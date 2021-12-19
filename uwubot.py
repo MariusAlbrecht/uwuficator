@@ -1,6 +1,5 @@
 import discord
 import uwufier as u
-import os
 
 client = discord.Client()
 
@@ -16,4 +15,4 @@ async def on_message(message):
     await message.delete()
     await message.channel.send('---------------------------------------------- \n' +  message.author.mention + ' sent: \n' + u.uwufy(message.content))
 
-client.run(open(os.path.join('token'), "r").read())
+client.run(open('token', "r").read())
