@@ -1,4 +1,5 @@
 import os
+import re
 
 def fileUwufy(path = ""):
     with open(os.path.join(path), "r") as file:
@@ -22,15 +23,21 @@ def directoryUwufy(path = "", extensions = ['.txt','.md'], avoids = ["README.md"
 def uwufy(textToConvert):
     text = str(textToConvert)
     
-    text = text.replace("L", "W")
-    text = text.replace("R", "W")
-    text = text.replace("l", "w")
-    text = text.replace("r", "w")
-    text = text.replace("th", "d")
-    text = text.replace("ove", "uv")
-
+    if(len(findLink(textToConvert)) == 0):
+        text = text.replace("L", "W")
+        text = text.replace("R", "W")
+        text = text.replace("l", "w")
+        text = text.replace("r", "w")
+        text = text.replace("th", "d")
+        text = text.replace("ove", "uv")
+    
     return text
-                    
+
+def findLink(string): #taken from https://www.geeksforgeeks.org/python-check-url-string/
+    regex = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
+    url = re.findall(regex,string)      
+    return [x[0] for x in url]
+            
 def uwufiable(filepath, extensions, avoids):
     for avoid in avoids:
             if avoid != filepath:
